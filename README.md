@@ -119,29 +119,62 @@ The dashboard provides three interactive visualizations, all sourced directly fr
 
 ### Dashboard Screenshots
 
-The dashboard successfully processes **2.39M+ trips** from January 2022 data. Key visualizations include:
+The dashboard successfully processes **2.39M+ trips** from January 2022 data. All visualizations are sourced directly from MongoDB gold collections.
 
-**1. Daily Revenue & Trips Line Chart**
-- Shows revenue and trip counts from January 2022
+#### 1. Daily Revenue & Trips Line Chart
+
+![Daily Revenue & Trips](docs/screenshots/daily_revenue_trips.png)
+
+**Features:**
 - Interactive date range slider (default: 2010-02-17 to 2022-05-16)
+- Dual-axis visualization showing both revenue and trip counts over time
 - Reveals peak activity periods with trips reaching 1.75M+ on busy days
 - Revenue and trips show correlated patterns with mid-month surges
+- Sharp decline visible after January 31st indicating data collection period
 
-**2. Top Pickup Zones Bar Chart**
-- Displays top 10 zones by default (configurable 5-20 via slider)
-- Zone 132 leads with ~105,000 trips
-- Zones 236 and 237 show ~120,000 trips each (highest traffic areas)
-- Other zones (48, 141, 142, 161, 162, 170, 186) range from 70k-80k trips
+**Key Observations:**
+- Total trips line (light blue) shows values ranging from 1,250,000 to 1,750,000 during peak periods
+- Total revenue line (dark blue) stays relatively flat, mostly below 100,000
+- Both metrics drop to near zero after the data collection period ends
 
-**3. Payment Breakdown**
-- Bar chart showing revenue by payment type
-- Credit card: $36,992,450 (1,874,842 trips) - dominant payment method
-- Cash: $8,144,704 (495,166 trips)
-- Additional methods: no_charge ($129,282), dispute ($452,188), unknown ($11.80)
-- Interactive dropdown to highlight specific payment types
-- Detailed table with complete breakdown
+#### 2. Top Pickup Zones Bar Chart
 
-*Note: Screenshots of the live dashboard are available when running `uv run streamlit run bigdata_mongo_taxi/viz/dashboard.py`*
+![Top Pickup Zones](docs/screenshots/top_pickup_zones.png)
+
+**Features:**
+- Configurable slider to display top 5-20 zones (default: 10)
+- Vertical bar chart showing trip frequency by location ID
+- Y-axis ranges from 0 to 120,000 trips
+- Identifies high-traffic areas for fleet optimization
+
+**Key Observations:**
+- Zone 132: ~105,000 trips (highest individual zone)
+- Zones 236 and 237: ~120,000 trips each (highest traffic areas - Chelsea/Tribeca)
+- Other zones (48, 141, 142, 161, 162, 170, 186): 70k-80k trips each
+- Footer note: "Based on cleaned trips for the selected month"
+
+#### 3. Payment Breakdown
+
+![Payment Breakdown](docs/screenshots/payment_breakdown.png)
+
+**Features:**
+- Interactive dropdown selector to highlight specific payment types
+- Bar chart showing total revenue by payment method
+- Detailed table with complete trip counts and revenue breakdown
+- Summary callouts for key insights
+
+**Key Observations:**
+- **Credit Card:** $36,992,450.26 revenue (1,874,842 trips) - 78% of all trips
+- **Cash:** $8,144,704.16 revenue (495,166 trips) - 21% of all trips
+- **No Charge:** $129,282.16 revenue (11,709 trips)
+- **Dispute:** $452,188.01 revenue (10,673 trips)
+- **Unknown:** $11.80 revenue (1 trip)
+
+**Summary:** Credit card accounts for 1,874,842 trips and $36,992,450 revenue, demonstrating the critical importance of payment processor reliability.
+
+---
+
+*All screenshots are generated from live MongoDB queries. To view the interactive dashboard, run: `uv run streamlit run bigdata_mongo_taxi/viz/dashboard.py`*
 
 ## Quality Tooling
 - **Logging:** Centralized RotatingFileHandler in `logging_conf.py`.
