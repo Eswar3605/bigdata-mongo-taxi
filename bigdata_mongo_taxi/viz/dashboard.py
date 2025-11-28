@@ -61,18 +61,33 @@ metric_col3.metric("Total Distance (mi)", f"{total_distance:,.0f}")
 
 st.markdown("---")
 
-start_date, end_date = st.slider(
-    "Select date range",
-    value=(
-        daily_df["pickup_date"].min(),
-        daily_df["pickup_date"].max(),
-    ),
-    format="YYYY-MM-DD",
-)
-
-filtered_daily = daily_df.filter(
-    (pl.col("pickup_date") >= start_date) & (pl.col("pickup_date") <= end_date)
-)
+# Get date range for filtering
+date_series = daily_df["pickup_date"]
+if not date_series.is_empty():
+    from datetime import date as date_type
+    
+    min_date_val = date_series.min()
+    max_date_val = date_series.max()
+    # Convert Polars date to Python date
+    min_date_py = date_type.fromisoformat(str(min_date_val)) if min_date_val else date_type(2022, 1, 1)
+    max_date_py = date_type.fromisoformat(str(max_date_val)) if max_date_val else date_type(2022, 1, 31)
+    
+    # Use date_input for date range selection
+    date_range = st.date_input(
+        "Select date range",
+        value=(min_date_py, max_date_py),
+    )
+    if isinstance(date_range, tuple) and len(date_range) == 2:
+        start_date, end_date = date_range
+    else:
+        start_date = min_date_py
+        end_date = max_date_py
+    
+    filtered_daily = daily_df.filter(
+        (pl.col("pickup_date") >= start_date) & (pl.col("pickup_date") <= end_date)
+    )
+else:
+    filtered_daily = daily_df
 
 st.subheader("Daily Revenue & Trips")
 daily_pd = filtered_daily.to_pandas().set_index("pickup_date")
