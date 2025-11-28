@@ -11,23 +11,23 @@ This project ingests >1M NYC TLC yellow taxi rows into a MongoDB replica set, th
 
 ```mermaid
 flowchart TB
-    subgraph Ingestion["Ingestion"]
-        A["NYC TLC CSV<br/>1.5M+ rows"]
-        B["Raw Ingest Script<br/>Polars + Pydantic"]
+    subgraph Ingestion
+        A[NYC TLC CSV<br/>1.5M+ rows]
+        B[Raw Ingest Script<br/>Polars + Pydantic]
     end
 
-    subgraph MongoReplicaSet["MongoDB Replica Set"]
-        M1[("mongo1<br/>Primary")]
+    subgraph MongoReplicaSet
+        M1[(mongo1<br/>Primary)]
     end
 
-    subgraph Processing["Processing"]
-        C["Clean & Transform<br/>Missing values · Normalize · Pydantic"]
-        D["Aggregation<br/>Daily/Zones/Payments"]
+    subgraph Processing
+        C[Clean and Transform<br/>Missing values, Normalize, Pydantic]
+        D[Aggregation<br/>Daily/Zones/Payments]
     end
 
-    subgraph Consumers["Consumers"]
-        E["Streamlit Dashboard<br/>3 Visuals"]
-        F["BI Tools / Future APIs"]
+    subgraph Consumers
+        E[Streamlit Dashboard<br/>3 Visuals]
+        F[BI Tools / Future APIs]
     end
 
     A --> B
