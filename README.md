@@ -117,7 +117,31 @@ The dashboard provides three interactive visualizations, all sourced directly fr
 - Responsive layout with dark theme
 - Cached queries for performance
 
-Screenshots are available in the dashboard when running locally. The dashboard successfully processes **2.39M+ trips** from January 2022 data.
+### Dashboard Screenshots
+
+The dashboard successfully processes **2.39M+ trips** from January 2022 data. Key visualizations include:
+
+**1. Daily Revenue & Trips Line Chart**
+- Shows revenue and trip counts from January 2022
+- Interactive date range slider (default: 2010-02-17 to 2022-05-16)
+- Reveals peak activity periods with trips reaching 1.75M+ on busy days
+- Revenue and trips show correlated patterns with mid-month surges
+
+**2. Top Pickup Zones Bar Chart**
+- Displays top 10 zones by default (configurable 5-20 via slider)
+- Zone 132 leads with ~105,000 trips
+- Zones 236 and 237 show ~120,000 trips each (highest traffic areas)
+- Other zones (48, 141, 142, 161, 162, 170, 186) range from 70k-80k trips
+
+**3. Payment Breakdown**
+- Bar chart showing revenue by payment type
+- Credit card: $36,992,450 (1,874,842 trips) - dominant payment method
+- Cash: $8,144,704 (495,166 trips)
+- Additional methods: no_charge ($129,282), dispute ($452,188), unknown ($11.80)
+- Interactive dropdown to highlight specific payment types
+- Detailed table with complete breakdown
+
+*Note: Screenshots of the live dashboard are available when running `uv run streamlit run bigdata_mongo_taxi/viz/dashboard.py`*
 
 ## Quality Tooling
 - **Logging:** Centralized RotatingFileHandler in `logging_conf.py`.
