@@ -155,11 +155,17 @@ The dashboard successfully processes **2.39M+ trips** from January 2022 data. Al
 
 #### 3. Payment Breakdown
 
-![Payment Breakdown](docs/screenshots/payment_breakdown.png)
+The payment breakdown visualization includes both a bar chart and a detailed data table:
+
+**Payment Breakdown Bar Chart:**
+![Payment Breakdown Chart](docs/screenshots/payment_breakdown_chart.png)
+
+**Payment Breakdown Table:**
+![Payment Breakdown Table](docs/screenshots/payment_breakdown_table.png)
 
 **Features:**
 - Interactive dropdown selector to highlight specific payment types
-- Bar chart showing total revenue by payment method
+- Bar chart showing total revenue by payment method (Y-axis: 0-60M, credit_card dominates at ~37M)
 - Detailed table with complete trip counts and revenue breakdown
 - Summary callouts for key insights
 
