@@ -1,0 +1,10 @@
+/.venv/
+__pycache__/
+.pytest_cache/
+logs/*.log
+mongo-data/**
+!mongo-data/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+.env
+

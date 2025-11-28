@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  mongo1:
+    image: mongo:7
+    container_name: mongo1
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./mongo-data/mongo1:/data/db
+
+  mongo-init-replica:
+    image: mongo:7
+    depends_on:
+      - mongo1
+    entrypoint: >
+      bash -c "sleep 5 &&
+               mongosh --host mongo1:27017 --eval
+               'rs.initiate({_id: \"rs0\", members: [{_id: 0, host: \"mongo1:27017\"}]})'"
