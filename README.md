@@ -120,8 +120,11 @@ db.trips_gold_zones.countDocuments()   // 10
 db.trips_gold_payment.countDocuments() // 5
 ```
 
-## Lessons Learned (fill in when done)
-- TODO: summarize technical + conceptual insights for final reflection & video script.
+## Key Insights
+
+- **Credit-card dominance:** 1.87M trips (≈78%) and \$36.9M revenue in the month were card-based, so uptime for payment processors is critical.
+- **Hot pickup zones:** Zone IDs 236/237 (Chelsea/Tribeca area) handled >120k trips—useful for driver dispatch or curb management.
+- **Daily surges:** Mid-January shows revenue spikes aligned with commuter demand; weather-driven dips are visible in the daily line chart.
 
 ---
 Feel free to open an issue or PR if you spot bugs or want to extend the pipeline (e.g., sharded cluster, Kafka ingestion, spark-based transforms).
