@@ -158,10 +158,10 @@ The dashboard successfully processes **2.39M+ trips** from January 2022 data. Al
 The payment breakdown visualization includes both a bar chart and a detailed data table:
 
 **Payment Breakdown Bar Chart:**
-![Payment Breakdown Chart](docs/screenshots/payment_breakdown_chart.png)
+![Payment Breakdown Table](docs/screenshots/payment_breakdown_table.png)
 
 **Payment Breakdown Table:**
-![Payment Breakdown Table](docs/screenshots/payment_breakdown_table.png)
+![Payment Breakdown Chart](docs/screenshots/payment_breakdown_chart.png)
 
 **Features:**
 - Interactive dropdown selector to highlight specific payment types
