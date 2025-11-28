@@ -10,18 +10,34 @@ This project ingests >1M NYC TLC yellow taxi rows into a MongoDB replica set, th
 ## Architecture
 
 ```mermaid
-flowchart LR
-    RAW[(NYC TLC CSV)]
-    PIPELINE_RAW[Python Raw Ingest<br/>Polars + Pydantic]
-    PIPELINE_CLEAN[Clean/Transform<br/>Missing values, dedupe, normalize]
-    PIPELINE_GOLD[Aggregation<br/>Daily/Zones/Payments]
-    STREAMLIT[Streamlit Dashboard]
-    MONGO[(MongoDB Replica Set<br/>Docker Compose)]
+flowchart TB
+    subgraph Ingestion["Ingestion"]
+        A["NYC TLC CSV<br/>1.5M+ rows"]
+        B["Raw Ingest Script<br/>Polars + Pydantic"]
+    end
 
-    RAW --> PIPELINE_RAW --> MONGO
-    MONGO --> PIPELINE_CLEAN --> MONGO
-    MONGO --> PIPELINE_GOLD --> MONGO
-    MONGO --> STREAMLIT
+    subgraph MongoReplicaSet["MongoDB Replica Set"]
+        M1[("mongo1<br/>Primary")]
+    end
+
+    subgraph Processing["Processing"]
+        C["Clean & Transform<br/>Missing values · Normalize · Pydantic"]
+        D["Aggregation<br/>Daily/Zones/Payments"]
+    end
+
+    subgraph Consumers["Consumers"]
+        E["Streamlit Dashboard<br/>3 Visuals"]
+        F["BI Tools / Future APIs"]
+    end
+
+    A --> B
+    B --> M1
+    M1 --> C
+    C --> M1
+    M1 --> D
+    D --> M1
+    M1 --> E
+    M1 --> F
 ```
 
 Replica set definition lives in `docker-compose.yml`. Collections: `trips_raw`, `trips_clean`, `trips_gold_daily`, `trips_gold_zones`, `trips_gold_payment`.

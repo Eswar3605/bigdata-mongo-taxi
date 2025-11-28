@@ -1,28 +1,30 @@
 ```mermaid
 flowchart TB
-    subgraph Ingestion
-        A[NYC TLC CSV<br/>1.5M+ rows]
-        B[Raw Ingest Script<br/>Polars + Pydantic]
+    subgraph Ingestion["Ingestion"]
+        A["NYC TLC CSV<br/>1.5M+ rows"]
+        B["Raw Ingest Script<br/>Polars + Pydantic"]
     end
 
-    subgraph MongoReplicaSet
-        direction LR
-        M1[(mongo1<br/>Primary)]
+    subgraph MongoReplicaSet["MongoDB Replica Set"]
+        M1[("mongo1<br/>Primary")]
     end
 
-    subgraph Processing
-        C[Clean & Transform<br/>Missing values · Normalize · Pydantic]
-        D[Aggregation<br/>Daily/Zones/Payments]
+    subgraph Processing["Processing"]
+        C["Clean & Transform<br/>Missing values · Normalize · Pydantic"]
+        D["Aggregation<br/>Daily/Zones/Payments"]
     end
 
-    subgraph Consumers
-        E[Streamlit Dashboard<br/>3 Visuals]
-        F[BI Tools / Future APIs]
+    subgraph Consumers["Consumers"]
+        E["Streamlit Dashboard<br/>3 Visuals"]
+        F["BI Tools / Future APIs"]
     end
 
-    A --> B --> M1
-    M1 --> C --> M1
-    M1 --> D --> M1
+    A --> B
+    B --> M1
+    M1 --> C
+    C --> M1
+    M1 --> D
+    D --> M1
     M1 --> E
     M1 --> F
 ```
